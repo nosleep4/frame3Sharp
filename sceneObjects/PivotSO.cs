@@ -5,9 +5,9 @@ namespace f3
 {
     public class PivotSO : BaseSO, SpatialQueryableSO
     {
-        fGameObject pivotGO;
-        fGameObject shapeGO;
-        fGameObject frameGO;
+        protected fGameObject pivotGO;
+        protected fGameObject shapeGO;
+        protected fGameObject frameGO;
 
         SOMaterial frameMaterial;
 

@@ -12,6 +12,8 @@ namespace f3
         public fDimension InitialRadius = fDimension.World(1.0);
         public float SmoothAlpha = 0.15f;
         public int SmoothIterations = 5;
+        public fMaterial PrimaryBrushMat;
+        public fMaterial SecondaryBrushMat;
 
         public bool IsSupported(ToolTargetType type, List<SceneObject> targets)
         {
@@ -25,7 +27,8 @@ namespace f3
                 Radius = InitialRadius.Clone(),
                 SmoothAlpha = this.SmoothAlpha,
                 SmoothIterations = this.SmoothIterations,
-
+                PrimaryBrushMat = this.PrimaryBrushMat,
+                SecondaryBrushMat = this.SecondaryBrushMat
             };
         }
     }
@@ -137,11 +140,15 @@ namespace f3
             get { return targets.Cast<SceneObject>(); }
         }
 
+        public fMaterial PrimaryBrushMat { get => primaryBrushMat; set => primaryBrushMat = value; }
+        public fMaterial SecondaryBrushMat { get => secondaryBrushMat; set => secondaryBrushMat = value; }
+
+
         Frame3f lastBrushPos;
         ToolIndicatorSet indicators;
         BrushCursorSphere brushIndicator;
-        fMaterial moveSphereMat;
-        fMaterial smoothSphereMat;
+        fMaterial primaryBrushMat;
+        fMaterial secondaryBrushMat;
 
         public SculptCurveTool(FScene scene, List<SceneObject> targets)
         {
@@ -168,10 +175,10 @@ namespace f3
                 PositionF = () => { return lastBrushPos.Origin; },
                 Radius = fDimension.World( () => { return radius.WorldValue; } )
             };
-            moveSphereMat = MaterialUtil.CreateTransparentMaterialF(Colorf.CornflowerBlue, 0.2f);
-            smoothSphereMat = MaterialUtil.CreateTransparentMaterialF(Colorf.ForestGreen, 0.2f);
+            primaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.CornflowerBlue, 0.2f);
+            secondaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.ForestGreen, 0.2f);
             indicators.AddIndicator(brushIndicator);
-            brushIndicator.material = moveSphereMat;
+            brushIndicator.material = primaryBrushMat;
 
             SmoothAlpha = 0.15f;
             SmoothIterations = 5;
@@ -203,7 +210,7 @@ namespace f3
 
         virtual public void PreRender()
         {
-            brushIndicator.material = (ActiveBrush == BrushTool.Smooth) ? smoothSphereMat : moveSphereMat;
+            brushIndicator.material = (ActiveBrush == BrushTool.Smooth) ? secondaryBrushMat : primaryBrushMat;
             indicators.PreRender();
         }
 

@@ -10,6 +10,8 @@ namespace f3
     public class SurfaceBrushToolBuilder : IToolBuilder
     {
         public fDimension InitialRadius = fDimension.World(1.0);
+        public fMaterial PrimaryBrushMat;
+        public fMaterial SecondaryBrushMat;
 
         public virtual bool IsSupported(ToolTargetType type, List<SceneObject> targets)
         {
@@ -26,7 +28,10 @@ namespace f3
 
         protected virtual SurfaceBrushTool new_tool(FScene scene, DMeshSO target)
         {
-            return new SurfaceBrushTool(scene, target);
+            return new SurfaceBrushTool(scene, target) {
+                PrimaryBrushMat = this.PrimaryBrushMat,
+                SecondaryBrushMat = this.SecondaryBrushMat,
+            };
         }
     }
 
@@ -85,6 +90,13 @@ namespace f3
         }
 
 
+        fMaterial primaryBrushMat;
+        public fMaterial PrimaryBrushMat { get => primaryBrushMat; set => primaryBrushMat = value; }
+
+        fMaterial secondaryBrushMat;
+        public fMaterial SecondaryBrushMat { get => secondaryBrushMat; set => secondaryBrushMat = value; }
+
+
         bool invert = false;
         public bool Invert {
             get { return invert; }
@@ -119,8 +131,7 @@ namespace f3
         Frame3f lastBrushPosW;
         ToolIndicatorSet Indicators;
         BrushCursorSphere brushIndicator;
-        fMaterial primaryBrushMat;
-        fMaterial secondaryBrushMat;
+
 
         public SurfaceBrushTool(FScene scene, DMeshSO target)
         {
@@ -151,8 +162,8 @@ namespace f3
                 PositionF = () => { return lastBrushPosW.Origin; },
                 Radius = fDimension.World(() => { return radius.WorldValue; })
             };
-            primaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.CornflowerBlue, 0.2f);
-            secondaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.ForestGreen, 0.2f);
+            if (primaryBrushMat == null) primaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.CornflowerBlue, 0.2f);
+            if (secondaryBrushMat == null) secondaryBrushMat = MaterialUtil.CreateTransparentMaterialF(Colorf.ForestGreen, 0.2f);
             Indicators.AddIndicator(brushIndicator);
             brushIndicator.material = primaryBrushMat;
         }
