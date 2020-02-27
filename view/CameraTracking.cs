@@ -96,10 +96,31 @@ namespace f3 {
 
 
 
+    /// <summary>
+    /// Camera tracking structure used for updated Unity Scriptable Rendering Pipeline
+    /// h.ks should create cameras for the following layers :
+    ///      FPlatform.WidgetOverlayLayer; FPlatform.HUDLayer; FPlatform.UILayer; FPlatform.CursorLayer;
+    /// </summary>
+    public interface ICameraTracking
+    {
+        fCamera MainCamera { get; }
+
+        fCamera OrthoUICamera { get; }
 
 
+        void Initialize(FContext controller);
 
-    public class CameraTracking {
+        void UpdateMainCamOrthoSize();
+
+        void UpdateMainCamFarDistance(float distance);
+
+        void UpdateOrthographic(bool orthographic);
+
+    }
+
+
+    public class CameraTracking: ICameraTracking
+    {
 
 		public CameraTracking() {
 		}

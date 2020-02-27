@@ -29,7 +29,7 @@ namespace f3 {
         FScene scene;                            // set of objects in our universe
         ICursorController mouseCursor;		    // handles mouse cursor interaction
         SpatialInputController spatialCursor;	// handles spatial interaction in VR
-        CameraTracking camTracker;              // tracks some camera stuff that we probably could just put here now...
+        ICameraTracking camTracker;              // tracks some camera stuff that we probably could just put here now...
         TransformManager transformManager;      // manages transform gizmos
         ToolManager toolManager;                // manages active tools
 
@@ -90,7 +90,7 @@ namespace f3 {
             get { return camTracker.OrthoUICamera; }
         }
 
-        public CameraTracking CameraManager {
+        public ICameraTracking CameraManager {
             get { return camTracker; }
         }
 
@@ -136,7 +136,7 @@ namespace f3 {
 
 
         // Use this for initialization
-        public void Start(SceneOptions options)
+        public void Start(SceneOptions options, ICameraTracking customCamTracker = null)
         {
             this.options = options;
 
@@ -157,7 +157,8 @@ namespace f3 {
             everyFrameActions = new ActionSet();
 
             // intialize camera stuff
-            camTracker = new CameraTracking();
+            //h.ks: Use default if no custom tracker is found (Used for SRP rendering, Unity 2018+)
+            camTracker = customCamTracker == null ? new CameraTracking() : customCamTracker;
             camTracker.Initialize(this);
 
             GetScene();
