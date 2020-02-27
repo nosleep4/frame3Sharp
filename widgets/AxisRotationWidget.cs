@@ -87,7 +87,7 @@ namespace f3
                 double dist = (planeHitW - rotateFrameW.Origin).Length;
                 on_snap = Math.Abs(dist - gizmoRadiusW) < gizmoRadiusW * 0.15f;
                 if (on_snap)
-                    fDeltaAngle = (float)Snapping.SnapToIncrement(fDeltaAngle, SnapIncrementDeg * MathUtil.Deg2Radf);
+                    fDeltaAngle = (float)g3.Snapping.SnapToIncrement(fDeltaAngle, SnapIncrementDeg * MathUtil.Deg2Radf);
                 enable_snap_indicator(true);
                 update_snap_indicator(-fDeltaAngle, on_snap);
             }            

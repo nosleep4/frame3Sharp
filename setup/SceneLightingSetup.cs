@@ -100,7 +100,7 @@ namespace f3 {
                 float fEyeDist = sceneFrameW.Origin.Distance(Camera.main.transform.position);
                 fShadowDist = Mathf.Max(fShadowDist, 1.5f * fEyeDist);
 
-                int nShadowDist = (int)Snapping.SnapToIncrement(fShadowDist, 50);
+                int nShadowDist = (int)g3.Snapping.SnapToIncrement(fShadowDist, 50);
 
                 if (cur_shadow_dist != nShadowDist) {
                     QualitySettings.shadowDistance = nShadowDist;

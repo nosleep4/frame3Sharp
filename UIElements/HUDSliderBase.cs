@@ -435,12 +435,12 @@ namespace f3
             if (TickSnapMode != TickSnapModes.NoSnapping && TickCount > 0) {
                 if (TickSnapMode == TickSnapModes.AlwaysSnapToNearest) {
                     double fTickSpan = 1.0 / (TickCount-1);
-                    double fSnapped = Snapping.SnapToIncrement(snapped_value, fTickSpan);
+                    double fSnapped = g3.Snapping.SnapToIncrement(snapped_value, fTickSpan);
                     fSnapped = MathUtil.Clamp(fSnapped, 0, 1);
                     snapped_value = fSnapped;
                 } else {
                     double fTickSpan = 1.0 / (TickCount-1);
-                    double fSnapped = Snapping.SnapToIncrement(snapped_value, fTickSpan);
+                    double fSnapped = g3.Snapping.SnapToIncrement(snapped_value, fTickSpan);
                     if (Math.Abs(fSnapped - snapped_value) < TickSnapThreshold)
                         snapped_value = fSnapped;
                 }
