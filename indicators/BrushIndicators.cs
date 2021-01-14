@@ -39,7 +39,7 @@ namespace f3
         {
             sphereGO = GameObjectFactory.CreateMeshGO("brush_roi_sphere");
             sphereGO.SetMesh(UnityUtil.GetSphereMesh());
-            sphereGO.SetLayer(FPlatform.WidgetOverlayLayer);
+            sphereGO.SetLayer(FPlatform.HUDLayer);
         }
 
         public override void PreRender()

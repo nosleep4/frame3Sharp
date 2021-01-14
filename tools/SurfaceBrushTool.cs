@@ -23,15 +23,14 @@ namespace f3
             DMeshSO target = targets[0] as DMeshSO;
             SurfaceBrushTool tool = new_tool(scene, target);
             tool.Radius = InitialRadius.Clone();
+            tool.PrimaryBrushMat = this.PrimaryBrushMat;
+            tool.SecondaryBrushMat = this.SecondaryBrushMat;
             return tool;
         }
 
         protected virtual SurfaceBrushTool new_tool(FScene scene, DMeshSO target)
         {
-            return new SurfaceBrushTool(scene, target) {
-                PrimaryBrushMat = this.PrimaryBrushMat,
-                SecondaryBrushMat = this.SecondaryBrushMat,
-            };
+            return new SurfaceBrushTool(scene, target);
         }
     }
 
