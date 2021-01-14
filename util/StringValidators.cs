@@ -46,12 +46,12 @@ namespace f3
 
         public static string BasicAlphaNumericText(string oldStr, string newStr)
         {
-            string cleanString = Regex.Replace(newStr, @"[^a-zA-Z0-9\-\_]", "");
+            string cleanString = Regex.Replace(newStr, @"[^a-zA-Z0-9\-\\_]", "");
             return cleanString;
         }
         public static string KeyboardSymbolsText(string oldStr, string newStr)
         {
-            string cleanString = Regex.Replace(newStr, @"[^a-zA-Z0-9\-\_\,\.\?\*\#\(\)\[\]\<\>\\\/ ]", "");
+            string cleanString = Regex.Replace(newStr, @"[^a-zA-Z0-9\-\\_\,\.\?\*\#\(\)\[\]\<\>\\\/ ]", "");
             return cleanString;
         }
     }

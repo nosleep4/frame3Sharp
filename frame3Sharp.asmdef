@@ -2,10 +2,16 @@
     "name": "frame3Sharp",
     "references": [
         "geometry3Sharp",
-		"gsUnityVR"
+        "Unity.TextMeshPro",
+        "gsUnityVR"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
