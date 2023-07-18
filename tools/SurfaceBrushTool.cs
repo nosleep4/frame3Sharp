@@ -127,9 +127,9 @@ namespace f3
             get { return target; }
         }
 
-        Frame3f lastBrushPosW;
-        ToolIndicatorSet Indicators;
-        BrushCursorSphere brushIndicator;
+        protected Frame3f lastBrushPosW;
+        protected ToolIndicatorSet Indicators;
+        protected BrushCursorSphere brushIndicator;
 
 
         public SurfaceBrushTool(FScene scene, DMeshSO target)
