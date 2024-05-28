@@ -304,7 +304,7 @@ namespace f3
 
 
 
-        public void BeginBrushStroke(Frame3f vFrame)
+        virtual public void BeginBrushStroke(Frame3f vFrame)
         {
             if (in_stroke)
                 throw new Exception("SculptCurveTool.BeginBrushStroke: already in brush stroke!");
@@ -318,7 +318,7 @@ namespace f3
             lastBrushPos = vFrame;
         }
 
-        public void UpdateBrushStroke(Frame3f vFrame)
+        virtual public void UpdateBrushStroke(Frame3f vFrame)
         {
             if (in_stroke == false)
                 throw new Exception("SculptCurveTool.UpdateBrushStroke: not in brush stroke!");
@@ -337,7 +337,7 @@ namespace f3
             lastBrushPos = vFrame;
         }
 
-        public void EndBrushStroke()
+        virtual public void EndBrushStroke()
         {
             if (in_stroke == false)
                 throw new Exception("SculptCurveTool.EndBrushStroke: not in brush stroke!");
@@ -346,7 +346,7 @@ namespace f3
         }
 
 
-        public void UpdateBrushPreview(Frame3f vPos)
+        virtual public void UpdateBrushPreview(Frame3f vPos)
         {
             lastBrushPos = vPos;
         }
