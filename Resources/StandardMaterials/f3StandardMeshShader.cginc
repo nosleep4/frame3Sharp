@@ -69,7 +69,7 @@ struct VertexOutputForwardBase_f3VC
 {
 	float4 pos							: SV_POSITION;
 	float4 tex							: TEXCOORD0;
-	half3 eyeVec 						: TEXCOORD1;
+	half4 eyeVec 						: TEXCOORD1;
 	half4 tangentToWorldAndPackedData[3]    : TEXCOORD2;    // [3x3:tangentToWorld | 1x3 worldPos]
 	UNITY_SHADOW_COORDS(6)
 	UNITY_FOG_COORDS(7)
@@ -112,7 +112,7 @@ VertexOutputForwardBase_f3VC vertForwardBase_f3VC (VertexInput_f3VC v)
 	o.pos = UnityObjectToClipPos(v.vertex);
 		
 	o.tex = 0;  // [RMS] no textures w/ this shader TexCoords_f3VC(v);
-	o.eyeVec = NormalizePerVertexNormal(posWorld.xyz - _WorldSpaceCameraPos);
+	//o.eyeVec = NormalizePerVertexNormal(posWorld - _WorldSpaceCameraPos);
 	float3 normalWorld = UnityObjectToWorldNormal(v.normal);
 	#ifdef _TANGENT_TO_WORLD
 		float4 tangentWorld = float4(UnityObjectToWorldDir(v.tangent.xyz), v.tangent.w);
@@ -368,7 +368,7 @@ VertexOutputForwardAdd vertForwardAdd_f3VC(VertexInput v)
 	o.pos = UnityObjectToClipPos(v.vertex);
 
 	o.tex = TexCoords(v);
-	o.eyeVec = NormalizePerVertexNormal(posWorld.xyz - _WorldSpaceCameraPos);
+	//o.eyeVec = NormalizePerVertexNormal(posWorld.xyz - _WorldSpaceCameraPos.xyz);
 	o.posWorld = posWorld.xyz;
 	float3 normalWorld = UnityObjectToWorldNormal(v.normal);
 #ifdef _TANGENT_TO_WORLD
@@ -399,7 +399,7 @@ VertexOutputForwardAdd vertForwardAdd_f3VC(VertexInput v)
 	o.viewDirForParallax = mul(rotation, ObjSpaceViewDir(v.vertex));
 #endif
 
-	UNITY_TRANSFER_FOG(o, o.pos);
+	//UNITY_TRANSFER_FOG(o, o.pos);
 	return o;
 }
 
@@ -434,7 +434,7 @@ half4 fragForwardAdd_f3VC(VertexOutputForwardAdd i) : SV_Target
 
 	half4 c = UNITY_BRDF_PBS(s.diffColor, s.specColor, s.oneMinusReflectivity, s.smoothness, s.normalWorld, -s.eyeVec, light, noIndirect);
 
-	UNITY_APPLY_FOG_COLOR(i.fogCoord, c.rgb, half4(0, 0, 0, 0)); // fog towards black in additive pass
+	//UNITY_APPLY_FOG_COLOR(i.fogCoord, c.rgb, half4(0, 0, 0, 0)); // fog towards black in additive pass
 	return OutputForward(c, s.alpha);
 }
 
